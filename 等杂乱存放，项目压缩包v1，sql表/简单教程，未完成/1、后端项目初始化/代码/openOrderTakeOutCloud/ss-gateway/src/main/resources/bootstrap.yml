@@ -1,0 +1,43 @@
+server:
+  # 配置端口
+  port: 8898
+
+spring:
+  application:
+    # 会员服务
+    name: ss-gateway
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        enabled: true
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+      config:
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+        file-extension: yaml
+        # 加载配置中心的文件
+        extension-configs:
+          - data-id: ss-gateway.yaml
+            group: SS_GATEWAY_GROUP
+            refresh: true
+    # 网关配置
+    gateway:
+      discovery:
+        locator:
+          # 开启根据服务中心路由转发
+          enabled: true
+
+logging:
+  level:
+    com.report.service.analysis.fegin.AdminServiceClient: debug
+
+# 暴露监控断点，给后续的Admin进行监控处理
+# 获取单独访问http://localhost:ip/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,0 +1,59 @@
+server:
+  # 配置端口
+  port: 8700
+
+spring:
+  application:
+    # 会员服务
+    name: ss-shoppingcar
+  # 排除指定自动配置,不使用该功能
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+      - com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration
+
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        enabled: true
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+      config:
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+        file-extension: yaml
+        # 加载配置中心的文件
+        extension-configs:
+          - data-id: ss-shoppingcart.yaml
+            group: SS_SHOPPINGCART_GROUP
+            refresh: true
+          - data-id: ss-redis.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+          - data-id: ss-default-common.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+          - data-id: ss-mybatis-plus.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+          - data-id: ss-rabbitmq.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+          - data-id: ss-starshine.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+
+logging:
+  level:
+    com.report.service.analysis.fegin.AdminServiceClient: debug
+
+# 暴露监控断点，给后续的Admin进行监控处理
+# 获取单独访问http://localhost:ip/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

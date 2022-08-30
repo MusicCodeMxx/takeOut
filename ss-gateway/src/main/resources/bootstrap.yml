@@ -1,0 +1,57 @@
+server:
+  # 配置端口
+  port: 8898
+
+spring:
+  application:
+    # 会员服务
+    name: ss-gateway
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        enabled: true
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+      config:
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+        file-extension: yaml
+        # 加载配置中心的文件
+        extension-configs:
+          - data-id: ss-gateway.yaml
+            group: SS_GATEWAY_GROUP
+            refresh: true
+    # 网关配置
+    gateway:
+      discovery:
+        locator:
+          # 开启根据服务中心路由转发
+          enabled: true
+      routes:
+        # 用户服务
+        - id: ss_user_service
+          # 转发目标服务名 ss-user
+          uri: lb://ss-user
+            predicates:
+              # 匹配地址包含 http://localhost:88989/api/ss-user/** 即转发到 http://ss-user:8100/**
+              - Path=/api/ss-user/**
+          filters:
+            # 过滤器：将 客户端访问的 /api/ss-user/** , 截取并替换成 /** , 也就是去掉 /api/ss-user
+            - RewritePath=/api/ss-user/(?<segment>.*),/$\{segment}
+
+
+
+
+logging:
+  level:
+    com.report.service.analysis.fegin.AdminServiceClient: debug
+
+# 暴露监控断点，给后续的Admin进行监控处理
+# 获取单独访问http://localhost:ip/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

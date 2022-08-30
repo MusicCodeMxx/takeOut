@@ -1,0 +1,2 @@
+consumerContextFilter=top.starshine.commons.model.dubbo.ConsumerContextFilter
+providerContextFilter=top.starshine.commons.model.dubbo.ProviderContextFilter

@@ -1,0 +1,25 @@
+server:
+  # 配置端口
+  port: 8300
+
+spring:
+  application:
+    # 订单服务
+    name: ss-order
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        enabled: true
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+      config:
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+        file-extension: yaml
+        # 加载配置中心的文件
+        extension-configs:
+          - data-id: ss-common.yaml
+            group: DEFAULT_GROUP
+            refresh: true

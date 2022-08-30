@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.starshine.mapper.AttributesMapper">
+
+
+    <select id="findByProductIds" resultType="top.starshine.commons.entity.product.AttributesDto">
+        SELECT
+            t3.`id`,
+            t1.`id` AS 'productId',
+            t3.`name`,
+            t3.`value`,
+            t3.`def_value_index` AS 'defValueIndex',
+            t3.`description`
+        FROM `ss_product` AS t1
+                 INNER JOIN ( `ss_product_attributes` AS t2 ) ON t2.`product_id` = t1.`id`
+                 INNER JOIN ( `ss_attributes` AS t3 ) ON t3.`id` = t2.`attributes_id`
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>

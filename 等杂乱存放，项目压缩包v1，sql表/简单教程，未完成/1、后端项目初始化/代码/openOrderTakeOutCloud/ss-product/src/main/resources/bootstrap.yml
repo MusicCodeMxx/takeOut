@@ -1,0 +1,52 @@
+server:
+  # 配置端口
+  port: 8400
+
+spring:
+  application:
+    # 会员服务
+    name: ss-product
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        enabled: true
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+      config:
+        server-addr: 10.10.10.80:8848
+        #namespace: public
+        file-extension: yaml
+        # 加载配置中心的文件
+        extension-configs:
+          - data-id: ss-product.yaml
+            group: SS_PRODUCT_GROUP
+            refresh: true
+          - data-id: ss-redis.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+          - data-id: ss-default-common.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+          - data-id: ss-mybatis-plus.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+          - data-id: ss-rabbitmq.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+          - data-id: ss-starshine.yaml
+            group: DEFAULT_COMMON_GROUP
+            refresh: true
+
+logging:
+  level:
+    com.report.service.analysis.fegin.AdminServiceClient: debug
+
+# 暴露监控断点，给后续的Admin进行监控处理
+# 获取单独访问http://localhost:ip/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

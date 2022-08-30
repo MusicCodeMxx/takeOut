@@ -1,0 +1,66 @@
+server:
+  # 配置端口
+  port: 7002
+
+spring:
+  application:
+    name: consumer-service
+  main:
+    # Spring Boot2.1及更高的版本需要设定
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        enabled: true
+        server-addr: 10.10.10.80:8848
+      config:
+        server-addr: 10.10.10.80:8848
+        file-extension: yaml
+
+dubbo:
+  # 消费者拦截器
+  consumer:
+    filter: consumerContextFilter
+    # 启动时关闭检查是否有生产者服务, 默认 true
+    check: false
+    # 全局配置延迟链接, 默认 false
+    lazy: true
+    # 链接超时
+    #timeout:
+    #集群容错模式选择
+    #cluster: failback
+  cloud:
+    # 指定需要订阅的服务提供方,默认值 *, 会订阅所有服务, 不建议使用, 多个服务请用逗号隔开
+    #配置订阅服务多个服务用,隔开,不配置默认订阅注册中心所有服务, 然后控制台会疯狂警告你指定服务
+    subscribed-services: producer-service
+  #application:
+    #name: consumer-service
+    # 禁用QOS同一台机器可能会有端口冲突现象
+    #qos-enable: false
+    #qos-accept-foreign-ip: false
+  #registry:
+    #address: nacos://10.10.10.80:8848
+    #username: nacos
+    #password: nacos
+    # 设置超时时间
+    #timeout: 3000
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
+    port: -1
+  scan:
+    # 扫描 rpc 接口定义包
+    base-packages: top.starshine.dubbo
+  # 配置元数据中心
+  #metadata-report:
+    #address: nacos://10.10.10.80:8848
+    #username: nacos
+    #password: nacos
+    # 配置 namespace，有namespace需要指定namespace
+    #parameters:
+      #namespace: public
+    # 配置 隔离组，有配置 group 的需要指定 group
+    #group: DEFAULT_GROUP

@@ -1,0 +1,47 @@
+{
+  "groups": [
+    {
+      "name": "starshine.ignoring.path",
+      "type": "top.starshine.commons.model.token.IgnoringUrlProperties",
+      "sourceType": "top.starshine.commons.model.token.IgnoringUrlProperties"
+    },
+    {
+      "name": "starshine.thread.pool",
+      "type": "top.starshine.commons.config.ThreadPoolConfig",
+      "sourceType": "top.starshine.commons.config.ThreadPoolConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "starshine.ignoring.path.urls",
+      "type": "java.lang.String[]",
+      "description": "路径数组",
+      "sourceType": "top.starshine.commons.model.token.IgnoringUrlProperties"
+    },
+    {
+      "name": "starshine.thread.pool.core-pool-size",
+      "type": "java.lang.Integer",
+      "description": "核心池大小",
+      "sourceType": "top.starshine.commons.config.ThreadPoolConfig"
+    },
+    {
+      "name": "starshine.thread.pool.keep-alive-time",
+      "type": "java.lang.Integer",
+      "description": "保持活动时间",
+      "sourceType": "top.starshine.commons.config.ThreadPoolConfig"
+    },
+    {
+      "name": "starshine.thread.pool.maximum-pool-size",
+      "type": "java.lang.Integer",
+      "description": "最大池大小",
+      "sourceType": "top.starshine.commons.config.ThreadPoolConfig"
+    },
+    {
+      "name": "starshine.thread.pool.work-queue-size",
+      "type": "java.lang.Integer",
+      "description": "工作队列大小",
+      "sourceType": "top.starshine.commons.config.ThreadPoolConfig"
+    }
+  ],
+  "hints": []
+}
